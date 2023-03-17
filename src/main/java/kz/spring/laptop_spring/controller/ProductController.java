@@ -21,10 +21,32 @@ public class ProductController {
     }
 
     @GetMapping("/add")
-    public String addProduct(Model model) {
-//        List<Laptop> laptops = DbManager.getLaptops();
-//        model.addAttribute("products", laptops);
-
+    public String getAddPage() {
         return "add";
     }
+
+    @PostMapping("/add")
+    public String addProduct(@RequestParam(value = "model", defaultValue = "Nout") String model,
+                             @RequestParam("count") Integer count,
+                             @RequestParam("price") Integer price) {
+        DbManager.addLaptop(model, count, price);
+        return "redirect:/";
+    }
+
+    @GetMapping("/edit/{idshka}")
+    public String getEditPage(@PathVariable("idshka") Integer id, Model model) {
+        Laptop l = DbManager.getLaptop(id);
+        model.addAttribute("laptop", l);
+        return "edit";
+    }
+
+    @PostMapping("/edit")
+    public String editProduct(@RequestParam("id") Integer id, @RequestParam("model") String model,
+                              @RequestParam("count") Integer count, @RequestParam("price") Integer price) {
+        System.out.println("id=" + id + "\nmodel=" + model);
+        //todo edit
+        return "redirect:/";
+    }
+
+    //todo delete
 }

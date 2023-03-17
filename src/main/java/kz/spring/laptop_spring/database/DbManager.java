@@ -27,4 +27,8 @@ public class DbManager {
         }
         return null;
     }
+
+    public static void addLaptop(String model, Integer count, Integer price) {
+        laptops.add(new Laptop(id++, model, price, count));
+    }
 }
