@@ -16,12 +16,15 @@ public class ProductController {
     public String getAllProducts(Model model) {
         List<Laptop> laptops = DbManager.getLaptops();
         model.addAttribute("products", laptops);
+        model.addAttribute("title", "Home page");
 
         return "home";
     }
 
     @GetMapping("/add")
-    public String getAddPage() {
+    public String getAddPage(Model model) {
+        model.addAttribute("title", "Add page");
+
         return "add";
     }
 
@@ -37,6 +40,8 @@ public class ProductController {
     public String getEditPage(@PathVariable("idshka") Integer id, Model model) {
         Laptop l = DbManager.getLaptop(id);
         model.addAttribute("laptop", l);
+        model.addAttribute("title", "Edit page");
+
         return "edit";
     }
 
