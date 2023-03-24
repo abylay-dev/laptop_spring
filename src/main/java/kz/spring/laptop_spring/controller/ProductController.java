@@ -2,6 +2,8 @@ package kz.spring.laptop_spring.controller;
 
 import kz.spring.laptop_spring.database.DbManager;
 import kz.spring.laptop_spring.model.Laptop;
+import kz.spring.laptop_spring.model.TestClass;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +14,15 @@ import java.util.List;
 //@RequestMapping("products")
 public class ProductController {
 
+    @Autowired
+    private TestClass firstClass;
+
     @GetMapping("/")
     public String getAllProducts(Model model) {
         List<Laptop> laptops = DbManager.getLaptops();
         model.addAttribute("products", laptops);
         model.addAttribute("title", "Home page");
-
+        System.out.println(firstClass + "\t" + firstClass.getText());
         return "home";
     }
 
