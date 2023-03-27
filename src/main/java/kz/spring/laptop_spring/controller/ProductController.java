@@ -54,9 +54,15 @@ public class ProductController {
     public String editProduct(@RequestParam("id") Integer id, @RequestParam("model") String model,
                               @RequestParam("count") Integer count, @RequestParam("price") Integer price) {
         System.out.println("id=" + id + "\nmodel=" + model);
-        //todo edit
+        DbManager.updateLaptop(id, model, count,price);
         return "redirect:/";
     }
 
     //todo delete
+
+    @GetMapping("/delete/{idshka}")
+    public String deleteProduct(@PathVariable("idshka") Integer id){
+        DbManager.deleteProduct(id);
+        return "redirect:/";
+    }
 }

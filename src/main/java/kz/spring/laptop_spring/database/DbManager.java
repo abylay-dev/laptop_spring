@@ -31,4 +31,20 @@ public class DbManager {
     public static void addLaptop(String model, Integer count, Integer price) {
         laptops.add(new Laptop(id++, model, price, count));
     }
+
+    public static void  updateLaptop(int id, String model, Integer count, Integer price) {
+        for (Laptop l : laptops) {
+            if (l.getId() == id) {
+                l.setModel(model);
+                l.setCount(count);
+                l.setPrice(price);
+                break;
+            }
+        }
+    }
+
+    public static void deleteProduct(Integer id) {
+        Laptop laptop = getLaptop(id);
+        laptops.remove(laptop);
+    }
 }
