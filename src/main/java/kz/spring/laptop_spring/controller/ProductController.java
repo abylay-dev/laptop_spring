@@ -1,8 +1,8 @@
 package kz.spring.laptop_spring.controller;
 
-import kz.spring.laptop_spring.database.DbManager;
 import kz.spring.laptop_spring.model.Laptop;
 import kz.spring.laptop_spring.model.TestClass;
+import kz.spring.laptop_spring.service.LaptopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +17,15 @@ public class ProductController {
     @Autowired
     private TestClass firstClass;
 
+    @Autowired
+    private LaptopService laptopService;
+
     @GetMapping("/")
     public String getAllProducts(Model model) {
-        List<Laptop> laptops = DbManager.getLaptops();
+//        List<Laptop> laptops = laptopService.getAllLaptopsPriceBetween(500000, 999999);
+//        List<Laptop> laptops = laptopService.getAllLaptops();
+//        List<Laptop> laptops = laptopService.getAllLaptopsOrderByCountDesc();
+        List<Laptop> laptops = laptopService.getAllLaptopsOrderByModelAsc();
         model.addAttribute("products", laptops);
         model.addAttribute("title", "Home page");
         System.out.println(firstClass + "\t" + firstClass.getText());
@@ -37,13 +43,13 @@ public class ProductController {
     public String addProduct(@RequestParam(value = "model", defaultValue = "Nout") String model,
                              @RequestParam("count") Integer count,
                              @RequestParam("price") Integer price) {
-        DbManager.addLaptop(model, count, price);
+        laptopService.upsertLaptop(new Laptop(null, model, price, count));
         return "redirect:/";
     }
 
     @GetMapping("/edit/{idshka}")
     public String getEditPage(@PathVariable("idshka") Integer id, Model model) {
-        Laptop l = DbManager.getLaptop(id);
+        Laptop l = laptopService.getLaptopById(id);
         model.addAttribute("laptop", l);
         model.addAttribute("title", "Edit page");
 
@@ -54,15 +60,15 @@ public class ProductController {
     public String editProduct(@RequestParam("id") Integer id, @RequestParam("model") String model,
                               @RequestParam("count") Integer count, @RequestParam("price") Integer price) {
         System.out.println("id=" + id + "\nmodel=" + model);
-        DbManager.updateLaptop(id, model, count,price);
+        laptopService.upsertLaptop(new Laptop(id, model, price, count));
         return "redirect:/";
     }
 
     //todo delete
 
     @GetMapping("/delete/{idshka}")
-    public String deleteProduct(@PathVariable("idshka") Integer id){
-        DbManager.deleteProduct(id);
+    public String deleteProduct(@PathVariable("idshka") Integer id) {
+        laptopService.deleteLaptop(id);
         return "redirect:/";
     }
 }
