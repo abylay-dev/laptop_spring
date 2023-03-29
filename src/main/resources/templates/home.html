@@ -25,48 +25,41 @@
 
             <td><a th:href="@{'edit/' + ${laptop.getId()}}" type="button" class="btn btn-info">Edit</a></td>
             <td>
-                <a th:href="@{'delete/' + ${laptop.getId()}}" class="btn btn-danger btn-delete"
-                   id="deleteBtn" data-toggle="modal" data-target="#deleteModal">
+                <button class="btn btn-danger btn-delete" id="deleteBtn" data-bs-toggle="modal"
+                        data-bs-target="#deleteModal" th:onclick="'setDeleteId(' + ${laptop.id}+')'">
                     Delete
-                </a>
-
-                <div class="modal fade" id="deleteModal" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Delete Confirmation</h5>
-                                <button type="button" class="close" data-dismiss="modal">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                Do you want to delete product ?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                    Close
-                                </button>
-                                <a class="btn btn-danger delete-prod" id="delProduct">
-                                    Delete
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <script type="text/javascript">
-                        $('document').ready(function () {
-                            $('.btn-delete').on('click', function (event) {
-                                event.preventDefault();
-                                var hrefProd = $(this).attr('href');
-                                console.log("65sadfasd", hrefProd);
-                                $('#deleteModal #delProduct').attr('href', hrefProd);
-                                $('#deleteModal').modal();
-                            });
-                        });
-                    </script>
-                </div>
+                </button>
             </td>
         </tr>
         </tbody>
     </table>
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Delete Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Do you want to delete product ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <a href="" class="btn btn-danger delete-prod" id="delProduct">
+                        Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function setDeleteId(laptopId) {
+            document.getElementById("delProduct").href = 'delete/' + laptopId;
+        }
+    </script>
 </div>
 </html>
