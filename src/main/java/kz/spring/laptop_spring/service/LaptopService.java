@@ -5,7 +5,7 @@ import kz.spring.laptop_spring.model.Laptop;
 import java.util.List;
 
 public interface LaptopService {
-    void upsertLaptop(Laptop l);
+    void upsertLaptop(Laptop l, Integer countryId);
 
     Laptop getLaptopById(Integer id);
 

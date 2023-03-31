@@ -1,6 +1,8 @@
 package kz.spring.laptop_spring.service.impl;
 
+import kz.spring.laptop_spring.model.Country;
 import kz.spring.laptop_spring.model.Laptop;
+import kz.spring.laptop_spring.repository.CountryRepo;
 import kz.spring.laptop_spring.repository.LaptopRepo;
 import kz.spring.laptop_spring.service.LaptopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,13 @@ public class LaptopServiceImpl implements LaptopService {
     @Autowired
     private LaptopRepo laptopRepository;
 
+    @Autowired
+    private CountryRepo countryRepository;
+
     @Override
-    public void upsertLaptop(Laptop l) {
+    public void upsertLaptop(Laptop l, Integer countryId) {
+        Country country = countryRepository.getReferenceById(countryId);
+        l.setCountry(country);
         laptopRepository.save(l);
     }
 

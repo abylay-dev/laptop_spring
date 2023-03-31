@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
 
 @Data
 @NoArgsConstructor
@@ -20,5 +21,14 @@ public class Laptop {
 
     private int price;
     private int count;
-//    private Country country;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Country country;
+
+    public Laptop(Integer id, String model, int price, int count) {
+        this.id = id;
+        this.model = model;
+        this.price = price;
+        this.count = count;
+    }
 }

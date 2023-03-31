@@ -1,7 +1,9 @@
 package kz.spring.laptop_spring.controller;
 
+import kz.spring.laptop_spring.model.Country;
 import kz.spring.laptop_spring.model.Laptop;
 import kz.spring.laptop_spring.model.TestClass;
+import kz.spring.laptop_spring.service.CountryService;
 import kz.spring.laptop_spring.service.LaptopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,9 @@ public class ProductController {
     @Autowired
     private LaptopService laptopService;
 
+    @Autowired
+    private CountryService countryService;
+
     @GetMapping("/")
     public String getAllProducts(Model model) {
 //        List<Laptop> laptops = laptopService.getAllLaptopsPriceBetween(500000, 999999);
@@ -35,15 +40,16 @@ public class ProductController {
     @GetMapping("/add")
     public String getAddPage(Model model) {
         model.addAttribute("title", "Add page");
-
+        model.addAttribute("countries", countryService.getAllCountries());
         return "add";
     }
 
     @PostMapping("/add")
     public String addProduct(@RequestParam(value = "model", defaultValue = "Nout") String model,
                              @RequestParam("count") Integer count,
-                             @RequestParam("price") Integer price) {
-        laptopService.upsertLaptop(new Laptop(null, model, price, count));
+                             @RequestParam("price") Integer price,
+                             @RequestParam("country") Integer countryId) {
+        laptopService.upsertLaptop(new Laptop(null, model, price, count), countryId);
         return "redirect:/";
     }
 
@@ -58,9 +64,10 @@ public class ProductController {
 
     @PostMapping("/edit")
     public String editProduct(@RequestParam("id") Integer id, @RequestParam("model") String model,
-                              @RequestParam("count") Integer count, @RequestParam("price") Integer price) {
+                              @RequestParam("count") Integer count, @RequestParam("price") Integer price,
+                              @RequestParam("country") Integer countryId) {
         System.out.println("id=" + id + "\nmodel=" + model);
-        laptopService.upsertLaptop(new Laptop(id, model, price, count));
+        laptopService.upsertLaptop(new Laptop(id, model, price, count), countryId);
         return "redirect:/";
     }
 
