@@ -21,7 +21,7 @@
             <td th:text="${laptop.getModel()}"></td>
             <td th:text="${laptop.getCount()}"></td>
             <td th:text="${laptop.getPrice()} + ' KZT'"></td>
-            <td></td>
+            <td th:text="${laptop.country.code}"></td>
 
             <td><a th:href="@{'edit/' + ${laptop.getId()}}" type="button" class="btn btn-info">Edit</a></td>
             <td>

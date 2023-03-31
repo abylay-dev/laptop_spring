@@ -16,6 +16,13 @@
             <label for="price" class="form-label">Price</label>
             <input name="price" class="form-control" id="price" placeholder="50000"/>
         </div>
+        <div class="mb-4">
+            <label for="country" class="form-label">Country</label>
+            <select id="country" name="country" class="form-select" aria-label="Default select example">
+                <option th:each="country: ${countries}" th:value="${country.id}"
+                        th:text="${country.getName()}"></option>
+            </select>
+        </div>
         <br>
 
         <button class="btn btn-primary" type="submit">ADD</button>
