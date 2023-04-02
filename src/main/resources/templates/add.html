@@ -2,30 +2,34 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/main}">
 <div layout:fragment="main_content" style="width: 50%">
-    <form th:action="@{'add'}" method="post">
-        <div class="mb-3 mt-5">
-            <label for="modelName" class="form-label">Model</label>
-            <input name="model" type="text" class="form-control" id="modelName"
-                   placeholder="Model">
-        </div>
-        <div class="mb-3">
-            <label for="count" class="form-label">Count</label>
-            <input name="count" class="form-control" id="count" placeholder="5"/>
-        </div>
-        <div class="mb-4">
-            <label for="price" class="form-label">Price</label>
-            <input name="price" class="form-control" id="price" placeholder="50000"/>
-        </div>
-        <div class="mb-4">
-            <label for="country" class="form-label">Country</label>
-            <select id="country" name="country" class="form-select" aria-label="Default select example">
-                <option th:each="country: ${countries}" th:value="${country.id}"
-                        th:text="${country.getName()}"></option>
-            </select>
-        </div>
-        <br>
+    <div class="row mt-5">
+        <div class="container">
+            <form th:action="@{'add'}" method="post">
+                <div class="mb-3 mt-5">
+                    <label for="modelName" class="form-label">Model</label>
+                    <input name="model" type="text" class="form-control" id="modelName"
+                           placeholder="Model">
+                </div>
+                <div class="mb-3">
+                    <label for="count" class="form-label">Count</label>
+                    <input name="count" class="form-control" id="count" placeholder="5"/>
+                </div>
+                <div class="mb-4">
+                    <label for="price" class="form-label">Price</label>
+                    <input name="price" class="form-control" id="price" placeholder="50000"/>
+                </div>
+                <div class="mb-4">
+                    <label for="country" class="form-label">Country</label>
+                    <select id="country" name="country" class="form-select" aria-label="Default select example">
+                        <option th:each="country: ${countries}" th:value="${country.id}"
+                                th:text="${country.getName()}"></option>
+                    </select>
+                </div>
+                <br>
 
-        <button class="btn btn-primary" type="submit">ADD</button>
-    </form>
+                <button class="btn btn-primary" type="submit">ADD</button>
+            </form>
+        </div>
+    </div>
 </div>
 </html>
