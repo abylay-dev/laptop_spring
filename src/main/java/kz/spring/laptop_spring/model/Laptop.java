@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -24,6 +25,9 @@ public class Laptop {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Country country;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Market> markets;
 
     public Laptop(Integer id, String model, int price, int count) {
         this.id = id;

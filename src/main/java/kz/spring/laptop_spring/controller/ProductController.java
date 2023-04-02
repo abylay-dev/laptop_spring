@@ -1,15 +1,20 @@
 package kz.spring.laptop_spring.controller;
 
-import kz.spring.laptop_spring.model.Country;
 import kz.spring.laptop_spring.model.Laptop;
+import kz.spring.laptop_spring.model.Market;
 import kz.spring.laptop_spring.model.TestClass;
 import kz.spring.laptop_spring.service.CountryService;
 import kz.spring.laptop_spring.service.LaptopService;
+import kz.spring.laptop_spring.service.MarketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,6 +29,9 @@ public class ProductController {
 
     @Autowired
     private CountryService countryService;
+
+    @Autowired
+    private MarketService marketService;
 
     @GetMapping("/")
     public String getAllProducts(Model model) {
@@ -58,6 +66,7 @@ public class ProductController {
         Laptop l = laptopService.getLaptopById(id);
         model.addAttribute("laptop", l);
         model.addAttribute("title", "Edit page");
+        model.addAttribute("markets", marketService.getAllMarkets());
 
         return "edit";
     }
@@ -76,6 +85,24 @@ public class ProductController {
     @GetMapping("/delete/{idshka}")
     public String deleteProduct(@PathVariable("idshka") Integer id) {
         laptopService.deleteLaptop(id);
+        return "redirect:/";
+    }
+
+    @PostMapping("/assign-market")
+    public String assignMarket(@RequestParam("laptop_id") Integer laptop_id,
+                               @RequestParam("market_id") Integer market_id) {
+        Market market = marketService.getMarket(market_id);
+        if (market != null) {
+            Laptop laptop = laptopService.getLaptopById(laptop_id);
+            List<Market> laptop_markets = laptop.getMarkets();
+            if (laptop_markets == null) {
+                laptop_markets = new ArrayList<>();
+            }
+            System.out.println(laptop.getMarkets());
+            laptop_markets.add(market);
+            laptopService.upsertLaptop(laptop, laptop.getCountry().getId());
+            return "redirect:/edit/" + laptop_id;
+        }
         return "redirect:/";
     }
 }
