@@ -33,11 +33,11 @@
         <div class="container">
             <table class="table table-striped table-hover">
                 <tr th:if="laptop.markets != null" th:each="market : ${laptop.markets}">
-                    <form th:action="@{''}" method="post">
+                    <form th:action="@{'/delete-market'}" method="post">
                         <input hidden th:name="laptop_id" th:value="${laptop.id}">
                         <input hidden th:name="market_id" th:value="${market.id}">
-                        <td th:text="${market.getName()}"></td>
-                        <td>
+                        <td style="width: 80%" th:text="${market.getName()}"></td>
+                        <td style="width: 20%">
                             <button class="btn btn-danger btn-small">-</button>
                         </td>
                     </form>
@@ -53,8 +53,8 @@
                     <form th:action="@{'/assign-market'}" method="post">
                         <input hidden th:name="laptop_id" th:value="${laptop.id}">
                         <input hidden th:name="market_id" th:value="${market.id}">
-                        <td th:text="${market.getName()}"></td>
-                        <td>
+                        <td style="width: 80%" th:text="${market.getName()}"></td>
+                        <td style="width: 20%">
                             <button class="btn btn-success btn-small">+</button>
                         </td>
                     </form>
