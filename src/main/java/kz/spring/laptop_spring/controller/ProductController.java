@@ -6,6 +6,7 @@ import kz.spring.laptop_spring.model.TestClass;
 import kz.spring.laptop_spring.service.CountryService;
 import kz.spring.laptop_spring.service.LaptopService;
 import kz.spring.laptop_spring.service.MarketService;
+import kz.spring.laptop_spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,9 @@ public class ProductController {
 
     @Autowired
     private MarketService marketService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/")
     public String getAllProducts(Model model) {
@@ -68,7 +72,7 @@ public class ProductController {
         model.addAttribute("title", "Edit page");
         List<Market> laptopMarkets = l.getMarkets();
         List<Market> markets = marketService.getAllMarkets();
-        for (Market m: laptopMarkets){
+        for (Market m : laptopMarkets) {
             markets.remove(m);
         }
         model.addAttribute("markets", markets);
@@ -125,5 +129,41 @@ public class ProductController {
             return "redirect:/edit/" + laptop_id;
         }
         return "redirect:/";
+    }
+
+    /*@GetMapping("/registration")
+    public String getAllUser(User use) {
+        List<User> users = userService.getAllUsersOrderByLoginAsc();
+        return "";
+    }*/
+
+    @GetMapping("/register")
+    public String getRegistrationPage() {
+        return "register";
+    }
+
+    @PostMapping("/registration")
+    public String addUser(@RequestParam(name = "login", defaultValue = "Login") String login,
+                          @RequestParam("password") String password,
+                          @RequestParam("fio") String fio) {
+//        if (userService.registrationUser(login, password, fio)){
+//            return "redirect:/";
+//        } else {
+//        }
+//            return "redirect:/registration-page";
+        return userService.registrationUser(login, password, fio) ? "redirect:/" : "redirect:/register";
+    }
+
+    @GetMapping("/auth")
+    public String getLoginPage() {
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String loginUser(@RequestParam("login") String login, @RequestParam("password") String password) {
+        if (userService.getAllUsersOrderByLoginAsc(login, password)) {
+            return "redirect:/";
+        }
+        return "";
     }
 }

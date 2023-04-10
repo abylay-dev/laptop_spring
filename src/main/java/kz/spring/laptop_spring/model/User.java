@@ -15,15 +15,9 @@ public class User {
     @Column(name = "user_id")
     private Integer id;
 
-    @Column(length = 100)
+    @Column(length = 100, unique = true)
     private String login;
     private String password;
     private String fio;
 
-    public User(Integer id, String login, String password, String fio) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-        this.fio = fio;
-    }
 }
