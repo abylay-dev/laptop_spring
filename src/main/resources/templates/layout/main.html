@@ -10,13 +10,32 @@
             integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        body{
+            height: 100%;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 3px;
+            background-color: DarkSalmon;
+            color: white;
+            bottom: 0;
+            margin: 30% auto 0;
+        }
+
+        .action-buttons{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+    </style>
 </head>
 <body>
 
 <div th:insert="~{layout/nav}"></div>
 
 <div class="container" layout:fragment="main_content">
-
 </div>
 
 <div class="footer">
