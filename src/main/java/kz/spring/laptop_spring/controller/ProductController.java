@@ -105,4 +105,9 @@ public class ProductController {
         }
         return "redirect:/";
     }
+
+    @GetMapping("/403")
+    public String accessForbidden() {
+        return "403";
+    }
 }
