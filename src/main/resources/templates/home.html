@@ -1,7 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/main}">
+      layout:decorate="~{layout/main}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <div layout:fragment="main_content">
+    <h3 th:if="${user}!=null" th:text="'Welcome, ' + ${user.getFullname()}"></h3>
     <table class="table table-hover">
         <thead>
         <tr>
@@ -10,8 +12,8 @@
             <th scope="col">Count</th>
             <th scope="col">Price</th>
             <th scope="col">Country</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
+            <th scope="col" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">Edit</th>
+            <th scope="col" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -23,8 +25,10 @@
             <td th:text="${laptop.getPrice()} + ' KZT'"></td>
             <td th:text="${laptop.country.code}"></td>
 
-            <td><a th:href="@{'edit/' + ${laptop.getId()}}" type="button" class="btn btn-info">Edit</a></td>
-            <td>
+            <td sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')"><a th:href="@{'edit/' + ${laptop.getId()}}"
+                                                                              type="button"
+                                                                              class="btn btn-info">Edit</a></td>
+            <td sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">
                 <button class="btn btn-danger btn-delete" id="deleteBtn" data-bs-toggle="modal"
                         data-bs-target="#deleteModal" th:onclick="'setDeleteId(' + ${laptop.id}+')'">
                     Delete
