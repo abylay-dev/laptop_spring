@@ -1,11 +1,12 @@
 package kz.spring.laptop_spring.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 @Data
@@ -18,7 +19,7 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return null;
+        return name;
     }
     //ROLE_<NAME_ROLE>      ROLE_ADMIN      ROLE_USER       ROLE_MODERATOR
 }
