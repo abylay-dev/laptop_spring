@@ -8,7 +8,7 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
     List<User> getAllUsers();
 
-    User getUserById(Long id);
+    User getUserByUsername(String username);
 
     boolean upsertUser(User user);
 
