@@ -1,0 +1,64 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<div layout:fragment="main_content">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Fullname</th>
+            <th scope="col">Login</th>
+            <th scope="col">Role</th>
+            <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">Edit</th>
+            <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="user: ${users}">
+            <th scope="row" th:text="${user.id}"></th>
+            <td th:text="${user.fullname}"></td>
+            <td th:text="${user.getUsername()}"></td>
+            <td th:text="${user.showRoles()}"></td>
+
+            <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{'edit/' + ${user.getId()}}"
+                                                                              type="button"
+                                                                              class="btn btn-info">Edit</a></td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')">
+                <button class="btn btn-danger btn-delete" id="deleteBtn" data-bs-toggle="modal"
+                        data-bs-target="#deleteModal" th:onclick="'setDeleteId(' + ${user.id}+')'">
+                    Delete
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Delete Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to delete user ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <a href="" class="btn btn-danger delete-prod" id="delUser">
+                        Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function setDeleteId(userId) {
+            document.getElementById("delUser").href = 'delete/' + userId;
+        }
+    </script>
+</div>
+</html>

@@ -26,4 +26,25 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
+    public User(Long id, String fullname, String username, String password, String rePassword) {
+        this.id = id;
+        this.fullname = fullname;
+        this.username = username;
+        this.password = password;
+        this.rePassword = rePassword;
+    }
+
+    public String showRoles() {
+        for (Role r : roles) {
+            if (r.getName().equals("ROLE_ADMIN")) {
+                return "Admin";
+            } else if (r.getName().equals("ROLE_MODERATOR")) {
+                return "Moderator";
+            } else {
+                return "User";
+            }
+        }
+        return null;
+    }
 }
