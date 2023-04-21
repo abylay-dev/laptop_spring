@@ -82,6 +82,12 @@ public class ProductController {
         model.addAttribute("laptop", l);
         model.addAttribute("title", "Edit page");
         model.addAttribute("markets", marketService.getAllMarkets());
+        List<Market> laptopMarkets = l.getMarkets();
+        List<Market> markets = marketService.getAllMarkets();
+        for (Market m : laptopMarkets) {
+            markets.remove(m);
+        }
+        model.addAttribute("markets", markets);
 
         return "edit";
     }
@@ -118,6 +124,25 @@ public class ProductController {
             }
             System.out.println(laptop.getMarkets());
             laptop_markets.add(market);
+            laptopService.upsertLaptop(laptop, laptop.getCountry().getId());
+            return "redirect:/edit/" + laptop_id;
+        }
+        return "redirect:/";
+    }
+
+    @PostMapping("/delete-market")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
+    public String deleteMarket(@RequestParam("laptop_id") Integer laptop_id,
+                               @RequestParam("market_id") Integer market_id) {
+        Market market = marketService.getMarket(market_id);
+        if (market != null) {
+            Laptop laptop = laptopService.getLaptopById(laptop_id);
+            List<Market> laptop_markets = laptop.getMarkets();
+            if (laptop_markets == null) {
+                laptop_markets = new ArrayList<>();
+            }
+            System.out.println(laptop.getMarkets());
+            laptop_markets.remove(market);
             laptopService.upsertLaptop(laptop, laptop.getCountry().getId());
             return "redirect:/edit/" + laptop_id;
         }
