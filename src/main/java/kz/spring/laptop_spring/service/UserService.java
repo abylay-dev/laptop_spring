@@ -10,7 +10,9 @@ public interface UserService extends UserDetailsService {
 
     User getUserByUsername(String username);
 
-    boolean upsertUser(User user);
+    User addUser(User user);
+
+    boolean upsertUser(User user, String roleId);
 
     boolean deleteUser(Long id);
 }

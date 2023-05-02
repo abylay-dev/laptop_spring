@@ -36,7 +36,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean upsertUser(User user) {
+    public User addUser(User user) {
+        return null;
+    }
+
+    @Override
+    public boolean upsertUser(User user, String roleId) {
         User userFromDB = userRepository.findUserByUsername(user.getUsername());
 
         if (userFromDB != null) {

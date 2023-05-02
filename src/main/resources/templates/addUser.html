@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<div layout:fragment="main_content" style="width: 50%">
+    <div class="row mt-5">
+        <div class="container">
+            <form th:action="@{'adduser'}" method="post">
+                <div class="mb-3 mt-5">
+                    <label for="fullname" class="form-label">Fullname</label>
+                    <input name="fullname" type="text" class="form-control" id="fullname"
+                           placeholder="FIO">
+                </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Login</label>
+                    <input name="username" class="form-control" id="username" placeholder="username"/>
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="form-label">Password</label>
+                    <input name="password" class="form-control" type="password" id="password" placeholder="password"/>
+                </div>
+                <div class="mb-4">
+                    <label for="repassword" class="form-label">Repassword</label>
+                    <input name="repassword" class="form-control" type="password" id="repassword" placeholder="repassword"/>
+                </div>
+                <div class="mb-4">
+                    <label for="role" class="form-label">ROLE</label>
+                    <select id="role" name="role" class="form-select" aria-label="Default select example">
+                        <option th:each="role: ${roles}" th:value="${role.id}"
+                                th:text="${role.getName()}"></option>
+                    </select>
+                </div>
+                <br>
+
+                <button class="btn btn-primary" type="submit">ADD</button>
+            </form>
+        </div>
+    </div>
+</div>
+</html>
