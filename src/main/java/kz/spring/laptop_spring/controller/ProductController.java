@@ -82,6 +82,7 @@ public class ProductController {
         model.addAttribute("laptop", l);
         model.addAttribute("title", "Edit page");
         model.addAttribute("markets", marketService.getAllMarkets());
+        model.addAttribute("countries", countryService.getAllCountries());
         List<Market> laptopMarkets = l.getMarkets();
         List<Market> markets = marketService.getAllMarkets();
         for (Market m : laptopMarkets) {
@@ -89,7 +90,7 @@ public class ProductController {
         }
         model.addAttribute("markets", markets);
 
-        return "edit";
+        return "editProduct";
     }
 
     @PostMapping("/edit")
