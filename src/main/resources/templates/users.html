@@ -27,14 +27,14 @@
                                                                               class="btn btn-info">Edit</a></td>
             <td sec:authorize="hasRole('ROLE_ADMIN')">
                 <button class="btn btn-danger btn-delete" id="deleteBtn" data-bs-toggle="modal"
-                        data-bs-target="#deleteModal" th:data-username="${user.username}" onclick="'delUser(this.getAttribute(\'data-username\'))'">
+                        data-bs-target="#deleteUserModal" th:onclick="'setDeleteUserById(' + ${user.id}+')'">
                     Delete
                 </button>
             </td>
         </tr>
         </tbody>
     </table>
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -56,8 +56,8 @@
         </div>
     </div>
     <script type="text/javascript">
-        function setDeleteUser(username) {
-            document.getElementsByName("delUser").href = 'delete/' + username;
+        function setDeleteUserById(id) {
+            document.getElementsByName("delUser").href = '/users/delete/' + id;
         }
     </script>
 </div>
