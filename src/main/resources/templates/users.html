@@ -20,14 +20,14 @@
             <th scope="row" th:text="${user.id}"></th>
             <td th:text="${user.fullname}"></td>
             <td th:text="${user.getUsername()}"></td>
-            <td th:text="${user.showRoles()}"></td>
+            <td th:text="${user.getRolesName()}"></td>
 
-            <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{'edit/' + ${user.getId()}}"
+            <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{'users/edit-user-page/' + ${user.username}}"
                                                                               type="button"
                                                                               class="btn btn-info">Edit</a></td>
             <td sec:authorize="hasRole('ROLE_ADMIN')">
                 <button class="btn btn-danger btn-delete" id="deleteBtn" data-bs-toggle="modal"
-                        data-bs-target="#deleteModal" th:onclick="'setDeleteId(' + ${user.id}+')'">
+                        data-bs-target="#deleteModal" th:data-username="${user.username}" onclick="'delUser(this.getAttribute(\'data-username\'))'">
                     Delete
                 </button>
             </td>
@@ -56,8 +56,8 @@
         </div>
     </div>
     <script type="text/javascript">
-        function setDeleteId(userId) {
-            document.getElementById("delUser").href = 'delete/' + userId;
+        function setDeleteUser(username) {
+            document.getElementsByName("delUser").href = 'delete/' + username;
         }
     </script>
 </div>
