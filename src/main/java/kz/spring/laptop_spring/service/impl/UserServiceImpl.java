@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -40,6 +41,28 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+
+    @Override
+    public boolean editUser(User user, Long roleId) {
+
+        User userFromDB = userRepository.findUserByUsername(user.getUsername());
+
+        if (userFromDB == null) {
+            return false;
+        }
+        else {
+            Role role = roleRepository.findById(roleId).get();
+            HashSet<Role> roles = new HashSet<>();
+            roles.add(role);
+            userFromDB.setRoles(roles);
+            System.out.println("uygu626 :: "+userFromDB);
+
+            userRepository.save(userFromDB);
+
+            return true;
+        }
+    }
+
     @Override
     public boolean upsertUser(User user, String roleId) {
         User userFromDB = userRepository.findUserByUsername(user.getUsername());
@@ -60,19 +83,26 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    @Override
-    public boolean deleteUser(Long id) {
-        if (userRepository.getReferenceById(id) != null) {
-            userRepository.deleteById(id);
+    /*@Override
+    public boolean deleteUser(String username) {
+        if (userRepository.findUserByUsername(username) != null) {
+            userRepository.deleteUserByUsername(username);
             return true;
         }
         return false;
-    }
+    }*/
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findUserByUsername(username);
         if (user == null || !user.getUsername().equals(username)) throw new UsernameNotFoundException("User not found");
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getRoles());
+    }
+
+    @Override
+    public void resetPassword(String username) {
+        User userFromDb = getUserByUsername(username);
+        userFromDb.setPassword(passwordEncoder.encode("1234"));
+        userRepository.save(userFromDb);
     }
 }

@@ -35,7 +35,13 @@ public class User {
         this.rePassword = rePassword;
     }
 
-    public String showRoles() {
+    public User(Long id, String fullname, String username) {
+        this.id = id;
+        this.fullname = fullname;
+        this.username = username;
+    }
+
+    public String getRolesName() {
         for (Role r : roles) {
             if (r.getName().equals("ROLE_ADMIN")) {
                 return "Admin";

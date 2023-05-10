@@ -57,12 +57,12 @@ public class ProductController {
         return "home";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/add-product-page")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String getAddPage(Model model) {
         model.addAttribute("title", "Add page");
         model.addAttribute("countries", countryService.getAllCountries());
-        return "add";
+        return "addProduct";
     }
 
     @PostMapping("/add")
@@ -95,15 +95,15 @@ public class ProductController {
 
     @PostMapping("/edit")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
-    public String editProduct(@RequestParam("id") Integer id, @RequestParam("model") String model,
-                              @RequestParam("count") Integer count, @RequestParam("price") Integer price,
+    public String editProduct(@RequestParam("id") Integer id,
+                              @RequestParam("model") String model,
+                              @RequestParam("count") Integer count,
+                              @RequestParam("price") Integer price,
                               @RequestParam("country") Integer countryId) {
         System.out.println("id=" + id + "\nmodel=" + model);
         laptopService.upsertLaptop(new Laptop(id, model, price, count), countryId);
         return "redirect:/";
     }
-
-    //todo delete
 
     @GetMapping("/delete/{idshka}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
