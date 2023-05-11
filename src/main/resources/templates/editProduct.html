@@ -44,7 +44,7 @@
                         <input hidden th:name="laptop_id" th:value="${laptop.id}">
                         <input hidden th:name="market_id" th:value="${market.id}">
                         <td th:text="${market.getName()}"></td>
-                        <td>
+                        <td class="text-end"> <!-- Добавлен класс "text-end" для выравнивания по правому краю -->
                             <button class="btn btn-danger btn-small">-</button>
                         </td>
                     </form>
@@ -61,7 +61,7 @@
                         <input hidden th:name="laptop_id" th:value="${laptop.id}">
                         <input hidden th:name="market_id" th:value="${market.id}">
                         <td th:text="${market.getName()}"></td>
-                        <td>
+                        <td class="text-end"> <!-- Добавлен класс "text-end" для выравнивания по правому краю -->
                             <button class="btn btn-success btn-small">+</button>
                         </td>
                     </form>
