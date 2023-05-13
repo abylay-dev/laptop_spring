@@ -87,10 +87,10 @@ public class UserController {
     }
 
     @GetMapping("/delete/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteUser(@PathVariable("id") Long id) {
-//        userService.deleteUser(username);
-        System.out.println("++++++++++++ WORKING!!!!" + id);
-        return "redirect:/";
+        userService.deleteUserById(id);
+//        System.out.println("++++++++++++ WORKING!!!!" + id);
+        return "redirect:/users";
     }
 }

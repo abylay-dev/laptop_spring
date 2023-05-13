@@ -16,5 +16,9 @@ public interface UserService extends UserDetailsService {
 
     boolean upsertUser(User user, String roleId);
 
+    boolean deleteUser(String username);
+
     void resetPassword(String username);
+
+    boolean deleteUserById(Long id);
 }

@@ -48,7 +48,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
-                    <a href="" class="btn btn-danger delete-prod" id="delUser">
+                    <a href="" class="btn btn-danger" id="delUser">
                         Delete
                     </a>
                 </div>
@@ -57,7 +57,8 @@
     </div>
     <script type="text/javascript">
         function setDeleteUserById(id) {
-            document.getElementsByName("delUser").href = '/users/delete/' + id;
+            var deleteLink = document.getElementById("delUser");
+            deleteLink.setAttribute("href", '/users/delete/' + id);
         }
     </script>
 </div>
