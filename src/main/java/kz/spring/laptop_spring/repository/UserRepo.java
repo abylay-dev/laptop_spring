@@ -10,8 +10,4 @@ public interface UserRepo extends JpaRepository<User, Long> {
     User findUserByUsername(String username);
 
     User deleteUserByUsername(String username);
-
-
-    /*@Query("select id, fullname from user")
-    User getUser()*/;
 }

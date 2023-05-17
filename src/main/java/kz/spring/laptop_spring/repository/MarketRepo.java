@@ -8,5 +8,4 @@ import java.util.List;
 
 @Repository
 public interface MarketRepo extends JpaRepository<Market, Integer> {
-//    List<Market> ;
 }

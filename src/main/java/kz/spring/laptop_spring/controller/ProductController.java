@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-//@RequestMapping("products")
 public class ProductController {
 
     @Autowired
@@ -46,10 +45,7 @@ public class ProductController {
     @GetMapping("/")
     @PermitAll
     public String getAllProducts(Model model) {
-//        List<Laptop> laptops = laptopService.getAllLaptopsPriceBetween(500000, 999999);
         List<Laptop> laptops = laptopService.getAllLaptops();
-//        List<Laptop> laptops = laptopService.getAllLaptopsOrderByCountDesc();
-//        List<Laptop> laptops = laptopService.getAllLaptopsOrderByModelAsc();
         model.addAttribute("products", laptops);
         model.addAttribute("title", "Home page");
         model.addAttribute("user", getUserData());

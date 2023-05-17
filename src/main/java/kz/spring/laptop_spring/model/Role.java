@@ -21,5 +21,4 @@ public class Role implements GrantedAuthority {
     public String getAuthority() {
         return name;
     }
-    //ROLE_<NAME_ROLE>      ROLE_ADMIN      ROLE_USER       ROLE_MODERATOR
 }
