@@ -28,6 +28,7 @@ public class UserController {
         List<User> users = userService.getAllUsers();
 
         model.addAttribute("users", users);
+        model.addAttribute("title", "Users page");
         return "users";
     }
 
@@ -35,6 +36,7 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String addUserPage (Model model) {
         model.addAttribute("roles", roleRepo.findAll());
+        model.addAttribute("title", "Add user");
         return "adduser";
     }
 
@@ -57,6 +59,7 @@ public class UserController {
     public String editUserPage (@PathVariable("username")String username, Model model) {
         User userFromDb = userService.getUserByUsername(username);
         model.addAttribute("user", userFromDb);
+        model.addAttribute("title", "Edit user");
 
         for (Role user_roles: userFromDb.getRoles()){
             model.addAttribute("selectedRoleId", user_roles.getId());

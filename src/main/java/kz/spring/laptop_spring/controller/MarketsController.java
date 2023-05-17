@@ -35,6 +35,7 @@ public class MarketsController {
         Market marketFromDb = marketService.getMarket(id);
 
         model.addAttribute("market", marketFromDb);
+        model.addAttribute("title", "Edit market");
         return "editmarkets";
     }
 
@@ -57,6 +58,7 @@ public class MarketsController {
     @GetMapping("/add-market-page")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String addMarket (Model model) {
+        model.addAttribute("title", "Add market");
         return "addmarket";
     }
 
