@@ -8,4 +8,10 @@ public interface MarketService {
     List<Market> getAllMarkets();
 
     Market getMarket(Integer id);
+
+    public boolean editMarket(Integer id, String name);
+
+    boolean deleteMarketById(Integer id);
+
+    void addMarket(String name);
 }

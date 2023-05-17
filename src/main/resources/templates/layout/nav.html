@@ -18,8 +18,11 @@
                 <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">
                     <a style="color:green;" class="nav-link" th:href="@{'/users'}">List of Users</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">
+                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                     <a style="color:blue;" class="nav-link" th:href="@{'/users/add-user-page'}">Add User</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">
+                    <a style="color:brown;" class="nav-link" th:href="@{'/markets'}">List of Markets</a>
                 </li>
             </ul>
         </div>

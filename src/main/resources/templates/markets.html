@@ -1,0 +1,62 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<div layout:fragment="main_content">
+    <table class="table table-hover">
+        <a class="btn btn-success" sec:autorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')" th:href="@{'/markets/add-market-page'}">Add Market</a>
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Market</th>
+            <th scope="col" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">Edit</th>
+            <th scope="col" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="markets: ${markets}">
+            <th scope="row" th:text="${markets.id}"></th>
+            <td th:text="${markets.getName()}"></td>
+
+            <td sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')"><a th:href="@{'markets/edit-page/' + ${markets.getId()}}"
+                                                                              type="button"
+                                                                              class="btn btn-info">Edit</a></td>
+            <td sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">
+                <button class="btn btn-danger btn-delete" id="deleteBtn" data-bs-toggle="modal"
+                        data-bs-target="#deleteModal" th:onclick="'setDeleteMarketById(' + ${markets.id}+')'">
+                    Delete
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Delete Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to delete market ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <a href="" class="btn btn-danger delete-prod" id="deleteMarket">
+                        Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function setDeleteMarketById(id) {
+            var deleteLink = document.getElementById("deleteMarket");
+            deleteLink.setAttribute("href", '/markets/delete-market/' + id);
+        }
+    </script>
+</div>
+</html>
