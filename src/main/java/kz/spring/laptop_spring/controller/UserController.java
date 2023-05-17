@@ -26,7 +26,6 @@ public class UserController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String getAllUsers (Model model) {
         List<User> users = userService.getAllUsers();
-
         model.addAttribute("users", users);
         model.addAttribute("title", "Users page");
         return "users";
@@ -93,7 +92,7 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
-//        System.out.println("++++++++++++ WORKING!!!!" + id);
+
         return "redirect:/users";
     }
 }

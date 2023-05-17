@@ -51,7 +51,6 @@ public class MarketsController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String deleteMarket(@PathVariable("id") Integer id) {
         marketService.deleteMarketById(id);
-//        System.out.println("++++++++++++ WORKING!!!!" + id);
         return "redirect:/markets";
     }
 
