@@ -11,21 +11,34 @@
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <style>
-        body{
-            height: 100%;
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-bottom: 60px; /* Установите высоту футера в пикселях или другую желаемую единицу измерения */
         }
 
         .footer {
             position: fixed;
             left: 0;
             right: 0;
-            text-align: center;
-            padding: 3px;
+            padding: 10px;
             background-color: DarkSalmon;
             color: white;
+            text-align: center;
             bottom: 0;
+        }
 
-        .action-buttons{
+        .action-buttons {
             display: flex;
             flex-direction: row;
             justify-content: space-around;
@@ -33,15 +46,14 @@
     </style>
 </head>
 <body>
-
 <div th:insert="~{layout/nav}"></div>
 
 <div class="container" layout:fragment="main_content">
+    <!-- Здесь находится текущий контент -->
 </div>
 
 <div class="footer">
     Copyright. Abylay Sagymbayev 2023
 </div>
-
 </body>
 </html>

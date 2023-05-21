@@ -5,6 +5,7 @@
 <div layout:fragment="main_content">
     <table class="table table-hover">
         <a class="btn btn-success" sec:autorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')" th:href="@{'/markets/add-market-page'}">Add Market</a>
+        <div class="spacer" style="height: 2rem;"></div>
         <thead>
         <tr>
             <th scope="col">#</th>
