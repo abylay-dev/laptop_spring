@@ -5,7 +5,12 @@
 <div layout:fragment="main_content" style="width: 50%">
     <div class="row my-3">
         <div class="container">
-            <form th:action="@{'/auth'}" method="post">
+            <!-- todo check it -->
+            <div th:if="${param.error}" class="alert alert-danger mt-1" role="alert">
+                Incorrect value of username or password!
+            </div>
+
+            <form class="mt-1" th:action="@{'/auth'}" method="post">
                 <div class="mb-3 mt-3">
                     <label for="username" class="form-label">Username</label>
                     <input name="username" type="text" class="form-control" id="username"
