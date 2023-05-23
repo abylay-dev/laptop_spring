@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
         if (user.getPassword().equals(user.getRePassword())) {
 
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            Role role = roleRepository.findRoleByName("ROLE_USER");
+            Role role = roleRepository.getReferenceById(Long.valueOf(roleId));
             HashSet<Role> roles = new HashSet<>();
             roles.add(role);
             user.setRoles(roles);
