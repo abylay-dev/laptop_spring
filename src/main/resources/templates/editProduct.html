@@ -26,7 +26,8 @@
                     <label for="country" class="form-label">Country</label>
                     <select id="country" name="country" class="form-select" aria-label="Default select example">
                         <option th:each="country: ${countries}" th:value="${country.id}"
-                                th:text="${country.getName()}"></option>
+                                th:text="${country.getName()}"
+                                th:selected="${country.id}==${laptop.country.id}"></option>
                     </select>
                 </div>
                 <br>
